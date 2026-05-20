@@ -1,0 +1,9 @@
+torch
+torchvision
+pandas
+numpy
+tqdm
+Pillow
+boto3
+matplotlib
+PyWavelets
