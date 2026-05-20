@@ -70,6 +70,12 @@ If you wish to run this project in a different environment (such as a local mach
 
 ---
 
+## Future Enhancements
+
+* **Code Modularization:** While this project is currently self-contained within a unified Jupyter Notebook for experimental visibility, a primary next step is to refactor the codebase into a structured Python package. We plan to move the data loading, wavelet processing, and adaptation logic into standalone Python files (`.py`) featuring a clean command-line interface.
+
+---
+
 ## References
 1. Wang, H., Ge, S., Xing, E. P., & Lipton, Z. C. (2021). [MEMO: Test Time Robustness via Adaptation and Augmentation](https://arxiv.org/pdf/2110.09506)
 2. Y Shimizu, Z Zhang, R Batres. (2007) [The Wavelet Transform in Signal and Image Processing](https://link.springer.com/chapter/10.1007/978-1-84628-955-2_5#citeas)
