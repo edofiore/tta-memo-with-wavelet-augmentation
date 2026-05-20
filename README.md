@@ -5,6 +5,8 @@
 
 Deep Learning, 2024 - UniTn
 
+This repository contains the final project developed for the **Deep Learning (2024)** course as part of the Master's degree curriculum at the **University of Trento (UniTn)**.
+
 This project was conducted under the guidance of **Dr. Elisa Ricci** and **Dr. Francesco Tonini**.
 
 Authors:
@@ -44,13 +46,17 @@ We evaluated our approaches on **ImageNet-A**a highly challenging subset consist
 
 ---
 
-## 🛠️ Requirements & Dependencies
-* `torch` / `torchvision`
-* `boto3` (AWS SDK for Python)
-* `PyWavelets` (`pywt`)
-* `pandas`
-* `numpy`
-* `tqdm`
+## Requirements & Dependencies
+
+Ensure you have the following core modules installed before processing the notebook:
+* `torch` / `torchvision` (Deep learning framework & models)
+* `boto3` (AWS SDK for Python used to stream dataset from S3)
+* `PyWavelets` (`pywt` package for frequency decomposition)
+* `Pillow` (`PIL` module for processing image file bytes)
+* `matplotlib` (For plotting sub-bands and generating charts)
+* `pandas` (For structured data and logging summaries)
+* `numpy` (For array operations and coefficient manipulation)
+* `tqdm` (Progress bar tracking during adaptation loops)
 
 ---
 
