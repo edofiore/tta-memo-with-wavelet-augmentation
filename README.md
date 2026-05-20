@@ -30,8 +30,8 @@ We evaluated our approaches on **ImageNet-A**a highly challenging subset consist
 
 | Configuration | Augmentation Strategy | Wavelet Function | Top-1 Accuracy | Top-5 Accuracy |
 | :--- | :--- | :--- | :---: | :---: |
-| **ResNet-50 Baseline** | None | N/A | 1.8533% | — |
-| **Standard MEMO** | AugMix ($M=8$) | N/A | 5.1867% | — |
+| **ResNet-50 Baseline** | None | N/A | 1.8533% | 17.5333% |
+| **Standard MEMO** | AugMix ($M=8$) | N/A | 5.1867% | 30.5333% |
 | **Test 1_s** | Wavelet $\rightarrow$ AugMix (Single-Level) | Cyclic Batch | 5.0933% | 30.7467% |
 | **Test 1_m** | Wavelet $\rightarrow$ AugMix (Multilevel) | Cyclic Batch | 5.3867% | 30.3600% |
 | **Test 2_s** | Wavelet $\rightarrow$ $M \times$ AugMix (Single-Level) | Random Uniform | 5.7867% | 30.1333% |
@@ -44,13 +44,32 @@ We evaluated our approaches on **ImageNet-A**a highly challenging subset consist
 
 ---
 
-## Repository Structure
+## 🛠️ Requirements & Dependencies
+* `torch` / `torchvision`
+* `boto3` (AWS SDK for Python)
+* `PyWavelets` (`pywt`)
+* `pandas`
+* `numpy`
+* `tqdm`
 
-```text
-├── DL_Project_Colab_AWS.ipynb   # Complete implementation, execution, and logs
-├── README.md                    # Project documentation
-└── requirements.txt             # Project dependencies
-```
+---
+
+## Environment & Portability Note
+
+This notebook is specifically configured out-of-the-box to run on **Amazon Web Services (AWS)** using an **Amazon S3** bucket to stream the ImageNet-A dataset via `boto3`. 
+
+If you wish to run this project in a different environment (such as a local machine, a local cluster, or Google Colab):
+* You will need to download the **ImageNet-A** dataset manually.
+* You must replace the custom `S3ImageFolder` dataset class with PyTorch's standard `torchvision.datasets.ImageFolder` pointed to your local directory path.
+
+---
+
+## References
+1. Wang, H., Ge, S., Xing, E. P., & Lipton, Z. C. (2021). [MEMO: Test Time Robustness via Adaptation and Augmentation](https://arxiv.org/pdf/2110.09506)
+2. Y Shimizu, Z Zhang, R Batres. (2007) [The Wavelet Transform in Signal and Image Processing](https://link.springer.com/chapter/10.1007/978-1-84628-955-2_5#citeas)
+3. Dan Hendrycks, Norman Mu, Ekin D. Cubuk, Barret Zoph, Justin Gilmer, Balaji Lakshminarayanan (2020) [AugMix: A Simple Data Processing Method to Improve Robustness and Uncertainty](https://arxiv.org/abs/1912.02781)
+
+---
 
 ## Full Report
 The report (a self-contained notebook with code and text) can be read [here](https://github.com/edofiore/tta-memo-with-wavelet-augmentation/blob/main/DL_Project_AWS.ipynb).
