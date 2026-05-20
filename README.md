@@ -1,7 +1,4 @@
 # Test-Time Adaptation via MEMO with Wavelet Augmentation
-Test-Time Adaptation via Marginal Entropy Minimization (MEMO) using frequency-domain Wavelet Decomposition on ImageNet-A.
-
-# Test-Time Adaptation via MEMO with Wavelet Augmentation
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
