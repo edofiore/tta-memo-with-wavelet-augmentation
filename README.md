@@ -25,10 +25,6 @@ Test-Time Adaptation (TTA) dynamically fine-tunes a model during the inference s
 2. **Standard MEMO:** Sampling $M$ random augmentations per test instance via AugMix, computing the marginal entropy across the augmented batch, and performing a single backpropagation step to dynamically update parameters.
 3. **Wavelet-Enhanced MEMO (W-MEMO):** Decomposing the image into approximation ($cA$) and detail ($cH, cV, cD$) frequency sub-bands. We manipulate these coefficients to create distinct structural variations of the image before passing them into the TTA pipeline.
 
-<p align="center">
-  <img src="https://ar5iv.labs.arxiv.org/html/2110.09506/assets/fig/intro.png" width="500" alt="MEMO Pipeline Overview">
-</p>
-
 ---
 
 ## Experiments & Results
