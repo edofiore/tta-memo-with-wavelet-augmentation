@@ -1,2 +1,2 @@
-# tta-memo-with-wavelet-augmentation
-Test-Time Adaptation for Image Classification with MEMO
+# Test-Time Adaptation via MEMO with Wavelet Augmentation
+Test-Time Adaptation via Marginal Entropy Minimization (MEMO) using frequency-domain Wavelet Decomposition on ImageNet-A.
