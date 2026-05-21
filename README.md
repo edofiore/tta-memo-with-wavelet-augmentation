@@ -124,6 +124,7 @@ If you wish to run this project in a different environment (such as a local mach
 1. Wang, H., Ge, S., Xing, E. P., & Lipton, Z. C. (2021). [MEMO: Test Time Robustness via Adaptation and Augmentation](https://arxiv.org/pdf/2110.09506)
 2. Y Shimizu, Z Zhang, R Batres. (2007) [The Wavelet Transform in Signal and Image Processing](https://link.springer.com/chapter/10.1007/978-1-84628-955-2_5#citeas)
 3. Dan Hendrycks, Norman Mu, Ekin D. Cubuk, Barret Zoph, Justin Gilmer, Balaji Lakshminarayanan (2020) [AugMix: A Simple Data Processing Method to Improve Robustness and Uncertainty](https://arxiv.org/abs/1912.02781)
+4. Dan Hendrycks et al. (CVPR 2021) [ImageNet-A Dataset: Natural Adversarial Examples](https://arxiv.org/abs/1907.07174)
 
 ---
 
