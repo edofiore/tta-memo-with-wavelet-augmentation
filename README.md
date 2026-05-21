@@ -25,10 +25,54 @@ Test-Time Adaptation (TTA) dynamically fine-tunes a model during the inference s
 3. **Wavelet-Enhanced MEMO (W-MEMO):** Decomposing the image into approximation ($cA$) and detail ($cH, cV, cD$) frequency sub-bands. We manipulate these coefficients to create distinct structural variations of the image before passing them into the TTA pipeline.
 
 ---
+ 
+## Test-Time Adaptation (TTA) & MEMO
+
+The Test-Time Adaptation (TTA) framework redefines the classic deployment paradigm: instead of treating a neural network as a static block of frozen weights, the model becomes a dynamically adaptive system during the inference stage. **MEMO** (Marginal Entropy Minimization with One test point) solves this challenge without requiring ground-truth labels (unsupervised) and operates on **a single test point at a time** ($x_0$), completely eliminating any dependency on large batches or sequential data streams.
+
+<p align="center">
+  <img src="https://ar5iv.labs.arxiv.org/html/2110.09506/assets/fig/intro.png" alt="Standard MEMO Framework" width="80%" style="max-width: 780px; border-radius: 8px;">
+</p>
+
+### The Mathematical Optimization Loop of MEMO:
+
+1. **Batching Perturbations:** Given a single test input $x_0$, we apply a set of $M$ stochastic transformations sampled from an augmentation family $\mathcal{A}$ (configured via *AugMix* in our setup), generating a synthetic batch of data variants $[\mathbf{x}_1, \dots, \mathbf{x}_M]$.
+2. **Marginal Average Distribution:** We compute the output logits of the network $f_\theta$ for each variant and extract the marginal average probability distribution across the batch via Softmax:
+```math
+\overline{p}_\theta(c|\mathbf{x}) = \frac{1}{M}\sum_{i = 1}^M p_\theta(c|\mathbf{x}_i)
+```
+3. **Entropy Minimization:** To force the network to produce a confident, invariant prediction regardless of the perturbation applied, we optimize the weights by minimizing the **Marginal Entropy**:
+```math
+\mathcal{H}(\mathbf{X}) = -\sum_{x \in \mathcal{X}} \mathcal{p}(\mathbf{x}) \log \mathcal{p}(\mathbf{x})
+```
+where $\mathbf{p(x)}$ represents the probability of each discrete outcome $\mathbf{x}$, and the sum is taken over all possible outcomes in the sample space $\mathbf{X}$.
+
+We compute a single backpropagation step to update the model parameters $\theta \rightarrow \theta^\prime$, and then output the final prediction using the adapted weights.
+
+> **Weight Resetting:** To prevent the severe issue of *parameter drift*, where the network overfits to a specific sample and degrades on subsequent ones, our pipeline clones the initial model state and **restores the default parameters after processing each test batch**, ensuring absolute isolation between separate inferences.
+
+---
+
+## Wavelet Decomposition with MEMO (W-MEMO)
+
+While traditional TTA methods apply spatial or chromatic perturbations (e.g., rotations, color jitter), **W-MEMO** introduces variations directly inside the **frequency domain**, modifying the underlying geometric structures of the image.
+
+Using the **2D Discrete Wavelet Transform (DWT)**, an image is mathematically decomposed into four distinct sub-bands:
+* **$cA$ (Approximation Coefficients):** Captures the low-frequency components, representing the global context and macro-structures of the image.
+* **$cH, cV, cD$ (Detail Coefficients):** Captures the high-frequency components, isolating Horizontal, Vertical, and Diagonal edge patterns, textures, and fine details, respectively.
+
+### Frequency Coefficient Tuning & Augmentation:
+
+Instead of distorting the pixel space uniformly, we apply targeted, stochastic mutations directly to the high-frequency detail arrays before reconstructing the image via the Inverse Discrete Wavelet Transform (IDWT):
+* **Horizontal Detail ($cH$):** Injects Normally distributed noise $\mathcal{N}(0, \sigma^2)$ to simulate sensor grain or structural shifting.
+* **Vertical Detail ($cV$):** Applies a scalar multiplier to dynamically enhance or suppress prominent vertical edge responses.
+* **Diagonal Detail ($cD$):** Uses a binomial random mask (frequency dropout) to selectively strip away noisy high-frequency sub-components.
+
+---
 
 ## Experiments & Results
 
-We evaluated our approaches on **ImageNet-A**a highly challenging subset consisting of real-world natural adversarial examples that standard classifiers frequently fail on. Performance was measured using **Top-1 and Top-5 Accuracy (%)** restricted to the target ImageNet-A mask categories.
+We evaluated our approaches on **ImageNet-A** a highly challenging subset consisting of real-world natural adversarial examples that standard classifiers frequently fail on. Performance was measured using **Top-1 and Top-5 Accuracy (%)** restricted to the target ImageNet-A mask categories.
 
 | Configuration | Augmentation Strategy | Wavelet Function | Top-1 Accuracy | Top-5 Accuracy |
 | :--- | :--- | :--- | :---: | :---: |
